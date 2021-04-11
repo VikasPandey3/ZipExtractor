@@ -1,0 +1,15 @@
+---
+layout: default
+title: Home
+---
+<h3>Choose the local(s) zip file(s)</h3>
+<p class="note">Note : your browser will process the zip file, don't choose a file too big !</p>
+<input type="file" id="file" name="file" multiple /><br />
+<button type="button" onclick="extractZip()" id="extract">Extract Zip</button>
+<button type="button" onclick="saveZip()" id="save">save Zip</button>
+<div>
+  <h3>Content :</h3>
+  <div id="result">
+    
+  </div>
+</div>
