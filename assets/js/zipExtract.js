@@ -13,37 +13,50 @@ function extractZip(){
 
     function handelFile(f){
         new_zip.loadAsync(f).then(function(zip){
-            var root=[]
+            var root=[];
             var start=true;
             filesObj=zip;
+            root.push({'id':"root",'parent':'#','text':f.name});
             zip.forEach(function(relativePath,zipEntry){
                 console.log(zipEntry)
-                if(start){
-                    var y=relativePath.split('/')
-                    root.push({'id':"root".concat(y[0]),'parent':'#','text':y[0]})
-                    start=false;
-                }
-                else {
-                    var x=relativePath.split('/')
-                     x.unshift("root")
-                     console.log(x)
+                // if(start){
+                //     var y=relativePath.split('/')
+                //     root.push({'id':"root".concat(y[0]),'parent':'#','text':y[0]});
+                //     start=false;
+                // }
+                 {
+                    var newPath="root/".concat(relativePath);
+                    console.log(newPath);
                     var length=0;
-                    if(zipEntry.dir)
-                        length=x.length-1
-                    else
-                        length=x.length
-                    for(var i=2;i<length;i++){
-                        var found=false
-                        root.forEach((node,j)=>{
-                            if(node.id===(x[i-1].concat(x[i]))){
-                                if(node.parent===x[i-2].concat(x[i-1]))
-                                    found=true;
-                            }
-                        })
-                        if(!found){
-                            root.push({'id':x[i-1].concat(x[i]),'parent':x[i-2].concat(x[i-1]),'text':x[i],'data':{'path':relativePath}})
-                        }
+                    if(zipEntry.dir){
+                        var pathSplit=newPath.split('/');
+                        var text = pathSplit[pathSplit.length-2]
+                        var parent =(pathSplit.slice(0,(pathSplit.length-2))).join('');
+                        var id =(pathSplit.slice(0,(pathSplit.length-1))).join('');
+                        console.log(id,parent);
+                        root.push({'id':id,'parent':parent,'text':text,'data':{'path':relativePath}});
                     }
+                    else{
+                        var pathSplit=newPath.split('/');
+                        var text = pathSplit[pathSplit.length-1]
+                        var parent =(pathSplit.slice(0,(pathSplit.length-1))).join('');
+                        var id =pathSplit.join('');
+                        console.log(id,parent);
+                        root.push({'id':id,'parent':parent,'text':text,'data':{'path':relativePath}});
+                    }
+                    //     length=x.length;
+                    // for(var i=2;i<length;i++){
+                    //     var found=false;
+                    //     root.forEach((node,j)=>{
+                    //         if(node.id===(x[i-1].concat(x[i]))){
+                    //             if(node.parent===x[i-2].concat(x[i-1]))
+                    //                 found=true;
+                    //         }
+                    //     })
+                    //     if(!found){
+                    //         root.push({'id':x[i-1].concat(x[i]),'parent':x[i-2].concat(x[i-1]),'text':x[i],'data':{'path':relativePath}});
+                    //     }
+                    // }
                 } 
             })
             //filesObj['files']=content.files;
