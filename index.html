@@ -2,14 +2,28 @@
 layout: default
 title: Home
 ---
-<h3>Choose the local(s) zip file(s)</h3>
-<p class="note">Note : your browser will process the zip file, don't choose a file too big !</p>
-<input type="file" id="file" name="file" multiple /><br />
-<button type="button" onclick="extractZip()" id="extract">Extract Zip</button>
-<button type="button" onclick="saveZip()" id="save">save Zip</button>
-<div>
-  <h3>Content :</h3>
-  <div id="result">
-    
+
+<div id="container" class="container">
+  <div class="nav">
+    <div>Nav</div>
   </div>
+    <div class="main">
+      <div class="card">
+        <div class="heading">
+          <h4>Zip Extractor</h4>
+        </div>
+        <div class="input">
+          <input type="file" id="file" name="file" hidden/>
+          <label for="file">Choose file</label>
+        </div>
+        <div id="content" class="content">
+          <h4>Archive successfully extracted</h4>
+          <p>Click on a file to download it.</p>
+          <div id="result" class="result"></div>
+        </div>
+      </div>
+    </div>
+    <div class="footer">
+      <div>Footer</div>
+    </div>
 </div>
